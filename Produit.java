@@ -52,31 +52,60 @@ public class Produit {
         Typ = t;
         Date_expiration = m;
     }
-   public static void initPdt(Produit produit, int nbTyp, Type[] tabType, int[] indice) {
-        Scanner scanner = new Scanner(System.in);
+//    public static void initPdt(Produit produit, int nbTyp, Type[] tabType, int[] indice) {
+//         Scanner scanner = new Scanner(System.in);
 
-        System.out.print("\nDonner l'id du produit: ");
-        produit.setId(scanner.nextInt());
-        scanner.nextLine(); // Consomme la nouvelle ligne
+//         System.out.print("\nDonner l'id du produit: ");
+//         produit.setId(scanner.nextInt());
+//         scanner.nextLine(); // Consomme la nouvelle ligne
 
-        System.out.print("Donner le nom du produit: ");
-        produit.setNom(scanner.nextLine());
+//         System.out.print("Donner le nom du produit: ");
+//         produit.setNom(scanner.nextLine());
 
-        System.out.println("Remplir la date d'expiration du produit:");
-        MaDate.InitDate(produit.Date_expiration,scanner);
+//         System.out.println("Remplir la date d'expiration du produit:");
+//         MaDate.InitDate(produit.Date_expiration,scanner);
 
-        for (int i = 0; i < nbTyp; i++) {
-            System.out.printf("%d: %s\t", i, tabType[i].getNomType());
-        }
+//         for (int i = 0; i < nbTyp; i++) {
+//             System.out.printf("%d: %s\t", i, tabType[i].getNomType());
+//         }
 
-        System.out.print("\nDonner l'indice du type auquel appartient le produit: ");
-        indice[0] = scanner.nextInt();
+//         System.out.print("\nDonner l'indice du type auquel appartient le produit: ");
+//         indice[0] = scanner.nextInt();
 
-        produit.getTyp().setNomType(tabType[indice[0]].getNomType());
-        produit.getTyp().setIdType(tabType[indice[0]].getIdType());
-        produit.getTyp().getCat().setIdCat(tabType[indice[0]].getCat().getIdCat());
-        produit.getTyp().getCat().setNomCat(tabType[indice[0]].getCat().getNomCat());
+//         produit.getTyp().setNomType(tabType[indice[0]].getNomType());
+//         produit.getTyp().setIdType(tabType[indice[0]].getIdType());
+//         produit.getTyp().getCat().setIdCat(tabType[indice[0]].getCat().getIdCat());
+//         produit.getTyp().getCat().setNomCat(tabType[indice[0]].getCat().getNomCat());
+//     }
+
+
+////application grasp low coupling 
+
+public static void initPdt(Produit produit, int nbTyp, Type[] tabType, int[] indice, Scanner scanner) {
+    System.out.print("\nDonner l'id du produit: ");
+    produit.setId(scanner.nextInt());
+    scanner.nextLine(); // Consomme la nouvelle ligne
+
+    System.out.print("Donner le nom du produit: ");
+    produit.setNom(scanner.nextLine());
+
+    System.out.println("Remplir la date d'expiration du produit:");
+    DateService.initExpirationDate(produit.Date_expiration, scanner);  // Utilisation du service
+
+    for (int i = 0; i < nbTyp; i++) {
+        System.out.printf("%d: %s\t", i, tabType[i].getNomType());
     }
+
+    System.out.print("\nDonner l'indice du type auquel appartient le produit: ");
+    indice[0] = scanner.nextInt();
+
+    TypeService.setTypeForProduit(produit, tabType, indice[0]);  // Utilisation du service
+}
+
+
+
+
+
    public static void ajouterPdt(Produit p, int nbTyp, Type[] tabType, int[] tabQte, Produit[][] stock) {
         int ind = -5;
         for (int i = 0; i < nbTyp; ++i) {

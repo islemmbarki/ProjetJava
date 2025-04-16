@@ -12,17 +12,22 @@ public class Type {
     int idType;
     String nomType;
     Categorie cat;
+///application solid
+    private TypeFormatter formatter;
 
     public Type() {
         this.idType = 0;
         this.nomType = "";
     }
-
-    public Type(int idType, String nomType, Categorie categ) {
+/////application solid aussi 
+    public Type(int idType, String nomType, Categorie categ , TypeFormatter formatter) {
         this.idType = idType;
         this.nomType = nomType;
         this.cat = categ;
+        this.formatter = formatter;
     }
+
+
 
     public int getIdType() {
         return idType;
@@ -120,5 +125,10 @@ public class Type {
             System.out.println("*   Ce type est inexistant                                   *");
         }
     }
+//////application solid aussi
+    public void afficher() {
+        formatter.afficher(this);
+    }
+
 
 }

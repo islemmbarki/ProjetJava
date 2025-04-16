@@ -4,6 +4,8 @@
  */
 package com.mycompany.projetjava;
 import java.util.Scanner;
+
+import javax.swing.text.DateFormatter;
 /**
  *
  * @author 
@@ -11,19 +13,31 @@ import java.util.Scanner;
 
 public class MaDate {
     private int JJ;
-    
     private int MM;
     private int AA;
+
     public MaDate(){
         JJ=01;
         MM=01;
         AA=2025;
     };
-    public MaDate(int j,int m, int a){
-        JJ=j;
-        MM=m;
-        AA=a;
+
+    //////application OCL ici
+    public MaDate(int jour, int mois, int annee) {
+        if (jour < 1 || jour > 31) {
+            throw new IllegalArgumentException("Jour invalide");
+        }
+        if (mois < 1 || mois > 12) {
+            throw new IllegalArgumentException("Mois invalide");
+        }
+        if (annee < 0) {
+            throw new IllegalArgumentException("Année invalide");
+        }
+        this.JJ = jour;
+        this.MM = mois;
+        this.AA = annee;
     }
+
 
     public int getJJ() {
         return JJ;
@@ -66,4 +80,9 @@ public class MaDate {
             maDate.AA = scanner.nextInt();
         } while (maDate.AA < 1000 || maDate.AA > 9999);
     }
+
+  
+
+   
+
 }
