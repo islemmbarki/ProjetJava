@@ -18,6 +18,15 @@ import java.util.Scanner;
 public class Categorie {
     int idCat;
     String nomCat;
+    //Implementing Creator Pattern (GRASP)
+    public Type createType(String typeName) {
+        return new Type(generateTypeId(), typeName, this);
+    }
+    
+    private int generateTypeId() {
+        return idCat;
+        
+    }
     
     public Categorie(int idCat, String nomCat) {
         this.idCat = idCat;

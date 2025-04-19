@@ -1,6 +1,7 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ * Modified to include creator method (GRASP Creator)
  */
 package com.mycompany.projetjava;
 import java.util.Scanner;
@@ -12,6 +13,13 @@ public class Type {
     int idType;
     String nomType;
     Categorie cat;
+
+
+    // Creator method (GRASP)
+    public Produit createProductForThisType(int id, String name, MaDate expiration) {
+        return Produit.createProduct(id, name, this, expiration);
+    }
+    
 ///application solid
     private TypeFormatter formatter;
 

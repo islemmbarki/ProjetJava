@@ -11,7 +11,62 @@ public class Produit {
     Type Typ ;
     MaDate Date_expiration ;
 
-    public int getId() {
+       // Class invariant
+    private boolean invariant() {
+        return id >= 0 && 
+               nom != null && !nom.trim().isEmpty() && 
+               typ != null && 
+               date_expiration != null;
+    }
+
+  
+    public Produit(int id, String nom, Type typ, MaDate date_expiration) {
+        if (id < 0 || nom == null || nom.trim().isEmpty() || typ == null || date_expiration == null) {
+            throw new IllegalArgumentException("Invalid product parameters");
+        }
+        this.id = id;
+        this.nom = nom;
+        this.typ = typ;
+        this.date_expiration = date_expiration;
+        assert invariant();
+    }
+
+    public Produit() {
+        this(0, "New Product", new Type(), new MaDate());
+    }
+/** 
+    // Constructor is now private to enforce factory usage
+    public Produit(int id, String nom, Type typ, MaDate dateExpiration) {
+        this.id = id;
+        this.nom = nom;
+        this.typ = typ;
+        this.dateExpiration = dateExpiration;
+        assert invariant();
+    }**/
+
+    // Default constructor remains for compatibility
+   /** public Produit() {
+        this(0, "", new Type(), new MaDate());
+    }**/
+
+    // Getters and setters with invariant checks
+    public void setId(int id) {
+        if (id < 0) throw new IllegalArgumentException("ID cannot be negative");
+        this.id = id;
+        assert invariant();
+    }
+ 
+    // ... other getters/setters with similar validation
+
+    // ==============================================
+    // NOTE: The following methods have been MOVED to new classes:
+    // - initPdt() moved to ProductInitializerService
+    // - ajouterPdt() moved to ProductInventoryService
+    // - SupprimerPdt() moved to ProductInventoryService
+    // ==============================================
+    
+    
+    /**public int getId() {
         return id;
     }
 
@@ -25,33 +80,38 @@ public class Produit {
 
     public MaDate getDate_expiration() {
         return Date_expiration;
-    }
+    }**/
 
-    public void setId(int id) {
-        this.id = id;
-    }
+   // public void setId(int id) {
+    //    this.id = id;
+    //}
 
-    public void setNom(String Nom) {
-        this.Nom = Nom;
-    }
+    //public void setNom(String Nom) {
+      //  this.Nom = Nom;
+    //}
 
-    public void setTyp(Type Typ) {
-        this.Typ = Typ;
-    }
+   // public void setTyp(Type Typ) {
+      //  this.Typ = Typ;
+    //}
 
-    public void setDate_expiration(MaDate Date_expiration) {
-        this.Date_expiration = Date_expiration;
-    }
-    public Produit(){
-        id = 0;
-        Nom = "";
-    }
-    public Produit(int i ,String n,Type t,MaDate m){
+   // public void setDate_expiration(MaDate Date_expiration) {
+       // this.Date_expiration = Date_expiration;
+    //}
+   // public Produit(){
+    //    id = 0;
+     //   Nom = "";
+    //}
+    
+    
+    
+    /*public Produit(int i ,String n,Type t,MaDate m){
         id = i;
         Nom = n;
         Typ = t;
         Date_expiration = m;
-    }
+    }*/
+
+
 //    public static void initPdt(Produit produit, int nbTyp, Type[] tabType, int[] indice) {
 //         Scanner scanner = new Scanner(System.in);
 
@@ -80,7 +140,7 @@ public class Produit {
 
 
 ////application grasp low coupling 
-
+/* *
 public static void initPdt(Produit produit, int nbTyp, Type[] tabType, int[] indice, Scanner scanner) {
     System.out.print("\nDonner l'id du produit: ");
     produit.setId(scanner.nextInt());
@@ -100,12 +160,12 @@ public static void initPdt(Produit produit, int nbTyp, Type[] tabType, int[] ind
     indice[0] = scanner.nextInt();
 
     TypeService.setTypeForProduit(produit, tabType, indice[0]);  // Utilisation du service
-}
+}**/
 
 
 
 
-
+/** 
    public static void ajouterPdt(Produit p, int nbTyp, Type[] tabType, int[] tabQte, Produit[][] stock) {
         int ind = -5;
         for (int i = 0; i < nbTyp; ++i) {
@@ -148,7 +208,7 @@ public static void initPdt(Produit produit, int nbTyp, Type[] tabType, int[] ind
         } else {
             System.out.println("Le type du produit n'existe pas dans TabType");
         }
-    }
+    }**/
  /*public static void supprimerPdt(int idProduit, int idType, int nbTyp, Type[] tabType, int[] tabQte, Produit[][] stock) {
         int indiceType = -1;
         for (int i = 0; i < nbTyp; ++i) {
@@ -193,7 +253,9 @@ public static void initPdt(Produit produit, int nbTyp, Type[] tabType, int[] ind
         return (l == qte) ? 0 : 1;
     }
 */
-   public static void SupprimerPdt(Produit[][] stock, int[] tabQte, Produit pdt, Type[] tabType, int nbType) {
+  
+
+/**public static void SupprimerPdt(Produit[][] stock, int[] tabQte, Produit pdt, Type[] tabType, int nbType) {
         int i = 0, j = 0;
         i = Type.TypeExiste(tabType, nbType, pdt.Typ);
 
@@ -217,5 +279,5 @@ public static void initPdt(Produit produit, int nbTyp, Type[] tabType, int[] ind
         } else {
             System.out.println("*   Produit errone                                           *");
         }
-}
+}**/
 }
