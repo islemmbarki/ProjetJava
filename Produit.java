@@ -7,33 +7,50 @@ import java.util.Scanner;
 
 public class Produit {
     int id ;
-    String  Nom;
+    public String  Nom;
     Type Typ ;
     MaDate Date_expiration ;
 
-       // Class invariant
-    private boolean invariant() {
-        return id >= 0 && 
-               nom != null && !nom.trim().isEmpty() && 
-               typ != null && 
-               date_expiration != null;
-    }
 
-  
-    public Produit(int id, String nom, Type typ, MaDate date_expiration) {
-        if (id < 0 || nom == null || nom.trim().isEmpty() || typ == null || date_expiration == null) {
-            throw new IllegalArgumentException("Invalid product parameters");
-        }
+    //Principe du GRASP Creator
+
+    /**public Produit(int id, String nom, Type typ, MaDate date) {
         this.id = id;
-        this.nom = nom;
-        this.typ = typ;
-        this.date_expiration = date_expiration;
-        assert invariant();
+        this.Nom = nom;
+        this.Typ = typ; // Reçoit un Type existant
+        this.Date_expiration = date;
+    }**/
+
+    public Produit(int id, String nom, int idType, String nomType, int idCat, String nomCat, MaDate date) {
+        this.id = id;
+        this.Nom = nom;
+        this.Typ = new Type(idType, nomType, idCat, nomCat); // Crée son propre Type
+        this.Date_expiration = date;
     }
 
     public Produit() {
         this(0, "New Product", new Type(), new MaDate());
     }
+
+    public void setDate_expiration(MaDate date) {
+        if (date == null) {
+            throw new IllegalArgumentException("La date ne peut pas être null");
+        }
+        this.Date_expiration = date;  // Validation OCL déjà gérée par MaDate
+    }
+
+    
+  
+}
+
+
+
+
+
+
+
+    
+
 /** 
     // Constructor is now private to enforce factory usage
     public Produit(int id, String nom, Type typ, MaDate dateExpiration) {
@@ -50,13 +67,6 @@ public class Produit {
     }**/
 
 
-
-    // Getters and setters with invariant checks
-    public void setId(int id) {
-        if (id < 0) throw new IllegalArgumentException("ID cannot be negative");
-        this.id = id;
-        assert invariant();
-    }
  
 
     // New class for product operations to follow SRP
@@ -71,18 +81,9 @@ public class Produit {
         return productFactory.createProduct(id, name, type, date);
     }
     
-
-    // ... other getters/setters with similar validation
-
-    // ==============================================
-    // NOTE: The following methods have been MOVED to new classes:
-    // - initPdt() moved to ProductInitializerService
-    // - ajouterPdt() moved to ProductInventoryService
-    // - SupprimerPdt() moved to ProductInventoryService
-    // ==============================================
     
     
-    /**public int getId() {
+    public int getId() {
         return id;
     }
 
@@ -96,23 +97,24 @@ public class Produit {
 
     public MaDate getDate_expiration() {
         return Date_expiration;
-    }**/
+    }
 
-   // public void setId(int id) {
-    //    this.id = id;
-    //}
+    public void setId(int id) {
+        this.id = id;
+    }
 
-    //public void setNom(String Nom) {
-      //  this.Nom = Nom;
-    //}
+    public void setNom(String Nom) {
+        this.Nom = Nom;
+    }
 
-   // public void setTyp(Type Typ) {
-      //  this.Typ = Typ;
-    //}
+    public void setTyp(Type Typ) {
+        this.Typ = Typ;
+    }
 
    // public void setDate_expiration(MaDate Date_expiration) {
        // this.Date_expiration = Date_expiration;
     //}
+    
    // public Produit(){
     //    id = 0;
      //   Nom = "";
@@ -120,12 +122,12 @@ public class Produit {
     
     
     
-    /*public Produit(int i ,String n,Type t,MaDate m){
+    public Produit(int i ,String n,Type t,MaDate m){
         id = i;
         Nom = n;
         Typ = t;
         Date_expiration = m;
-    }*/
+    }
 
 
   public static void initPdt(Produit produit, int nbTyp, Type[] tabType, int[] indice) {
@@ -300,5 +302,4 @@ public static void SupprimerPdt(Produit[][] stock, int[] tabQte, Produit pdt, Ty
             System.out.println("*   Produit errone                                           *");
         }
     }
-}
 }

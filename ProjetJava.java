@@ -6,6 +6,8 @@ package com.mycompany.projetjava;
 import java.util.Scanner;
 //import static com.mycompany.projetjava.Categorie.AjouterCat;
 
+import javax.naming.spi.ObjectFactory;
+
 import com.mycompany.projetjava.Produit.ProductService;
 
 /**
@@ -15,39 +17,33 @@ import com.mycompany.projetjava.Produit.ProductService;
 public class ProjetJava {
     public static void main(String[] args){
 
-        // Initialize factories
-        ProductFactory productFactory = new DefaultProductFactory();
-        
-        // Initialize services
-        ProductService productService = new ProductService(productFactory);
-        
-        // Initialize categories using factory method
-        Categorie[] TabCat = new Categorie[20];
-        TabCat[0] = Categorie.createCategory(1, "Conserve");
-        TabCat[1] = Categorie.createCategory(2, "PLaitiers");
-        int nbCat = 2;
-
         // Initialize types using factory method
-        Type[] TabType = new Type[50];
-        TabType[0] = Type.createType(1, "Tomate", TabCat[0]);
-        TabType[1] = Type.createType(2, "Mais", TabCat[0]);
-        TabType[2] = Type.createType(3, "Lait", TabCat[1]);
-        int nbTyp = 3;
-        
+       TabCat[0] = ObjectFactory.createCategorie(1, "Conserve");
+       TabType[0] = ObjectFactory.createType(1, "Tomate", TabCat[0]);
+       Stock[0][0] = ObjectFactory.createProduit(1, "Sicam", TabType[0], new MaDate(5, 12, 2024));
+
+       // Plus besoin de créer Categorie séparément (Principe du GRASP Creator)
+       TabType[0] = new Type(1, "Tomate", 1, "Conserve"); // Crée sa Catégorie interne
+       Stock[0][0] = new Produit(1, "Sicam", 1, "Tomate", 1, "Conserve", new MaDate(5, 12, 2024)); // Crée son Type interne
+
+
         // Initialize quantities
         int[] TabQte = new int[50];
+
+
+       /** 
+        // Avant
+        Menu.afficherStock(TabCat, nbCat, TabType, nbTyp, TabQte, Stock);
+        Menu.VendrePdt(TabType, NbType, TabQte, Stock);**/
+
+        // Après
+        StockManager.afficherStock(TabCat, nbCat, TabType, nbTyp, TabQte, Stock);
+        SalesManager.vendreProduit(TabType, NbType, TabQte, Stock, scanner);
+        StatsManager.calculerStatMois(mois, annee, TabCat, nbCat);
+
+
         
-        // Initialize stock using factory
-        Produit[][] Stock = new Produit[100][50];
-        Stock[0][0] = productFactory.createProduct(1, "Sicam", TabType[0], new MaDate(5, 12, 2024));
-        TabQte[0]++;
-        Stock[1][0] = productFactory.createProduct(2, "Sicam", TabType[0], new MaDate(24, 4, 2023));
-        TabQte[0]++;
-        Stock[0][2] = productFactory.createProduct(1, "Vitalait", TabType[2], new MaDate(24, 10, 2024));
-        TabQte[2]++;
-
-
-
+        
         /** 
         Categorie[] TabCat = new Categorie[20];
         int nbCat;

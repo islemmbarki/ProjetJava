@@ -4,6 +4,9 @@
  */
 package com.mycompany.projetjava;
 import java.util.Scanner;
+
+import javax.naming.spi.ObjectFactory;
+
 import java.io.BufferedWriter;
 import java.io.BufferedReader;
 import java.io.FileWriter;
@@ -150,7 +153,15 @@ public class Menu {
                 return;
             }
             
-            min = Stock[0][i];
+            //min = Stock[0][i];
+
+            //Factory Method Pattern
+            min = ObjectFactory.createProduit(
+            Stock[0][i].getId(),
+            Stock[0][i].getNom(),
+            Stock[0][i].getTyp(),
+            Stock[0][i].getDate_expiration()
+);
             
             for (j = 1; j < TabQte[i]; j++) {
                 if (Stock[j][i].getDate_expiration().getAA() < min.getDate_expiration().getAA()) {
@@ -231,6 +242,8 @@ public class Menu {
             System.out.printf("*  Nombre de ventes pour la categorie %s: %d                   *\n", TabCat[i].nomCat, nvCat[i]);
         }
     }
+
+    
         public static void StatAnnee(int annee, Categorie[] TabCat, int NbCat) {
         int i, j, nvTotal = 0;
         int[] nvCat = new int[20];

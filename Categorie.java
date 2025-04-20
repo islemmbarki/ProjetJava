@@ -17,8 +17,8 @@ import java.util.Scanner;
  * @author 21697
  */
 public class Categorie {
-    int idCat;
-    String nomCat;
+    public int idCat;
+    public String nomCat;
 
      // Class invariant: ID must be positive and name not empty
      private boolean invariant() {

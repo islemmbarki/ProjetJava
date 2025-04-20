@@ -11,77 +11,46 @@ import javax.swing.text.DateFormatter;
  * @author 
  */
 
-public class MaDate {
+
+ /**
+ * Représente une date avec des invariants OCL :
+ * @inv JJ >= 1 and JJ <= 31
+ * @inv MM >= 1 and MM <= 12
+ * @inv AA >= 1000 and AA <= 9999
+ */
+
+ public class MaDate {
     private int JJ;
     private int MM;
     private int AA;
 
+//les Invariants OCL
 
-    // Class invariant: date must be valid
-    private boolean invariant() {
-        return isValidDate(JJ, MM, AA);
-    }
-
-    private boolean isValidDate(int day, int month, int year) {
-        if (year < 1000 || year > 9999) return false;
-        if (month < 1 || month > 12) return false;
-        
-        int maxDay;
-        switch (month) {
-            case 2:
-                maxDay = (year % 4 == 0 && (year % 100 != 0 || year % 400 == 0)) ? 29 : 28;
-                break;
-            case 4: case 6: case 9: case 11:
-                maxDay = 30;
-                break;
-            default:
-                maxDay = 31;
-        }
-        return day >= 1 && day <= maxDay;
-    }
-
-    public MaDate() {
-        this.JJ = 1;
-        this.MM = 1;
-        this.AA = 2025;
-        assert invariant();
-    }
-
+    // Constructeur avec validation OCL
     public MaDate(int j, int m, int a) {
-        if (!isValidDate(j, m, a)) {
-            throw new IllegalArgumentException("Invalid date");
-        }
+        this.setJJ(j);
+        this.setMM(m);
+        this.setAA(a);
+    }
+
+    // Setters avec validation OCL
+    public void setJJ(int j) {
+        if (j < 1 || j > 31) throw new IllegalArgumentException("Jour invalide (1-31)");
         this.JJ = j;
+    }
+
+    public void setMM(int m) {
+        if (m < 1 || m > 12) throw new IllegalArgumentException("Mois invalide (1-12)");
         this.MM = m;
+    }
+
+    public void setAA(int a) {
+        if (a < 1000 || a > 9999) throw new IllegalArgumentException("Année invalide (1000-9999)");
         this.AA = a;
-        assert invariant();
     }
 
-    // ... (rest of the getters and setters with validation)
 
-    public void setJJ(int JJ) {
-        if (!isValidDate(JJ, this.MM, this.AA)) {
-            throw new IllegalArgumentException("Invalid day for current month/year");
-        }
-        this.JJ = JJ;
-        assert invariant();
-    }
-
-    public void setMM(int MM) {
-        if (!isValidDate(this.JJ, MM, this.AA)) {
-            throw new IllegalArgumentException("Invalid month for current day/year");
-        }
-        this.MM = MM;
-        assert invariant();
-    }
-
-     public void setAA(int AA) {
-        if (!isValidDate(this.JJ, this.MM, AA)) {
-            throw new IllegalArgumentException("Invalid year for current day/month");
-        }
-        this.AA = AA;
-        assert invariant();
-    }
+ 
 
 /** 
     public MaDate(){
@@ -130,6 +99,9 @@ public class MaDate {
     public void setAA(int AA) {
         this.AA = AA;
     }**/
+
+
+/** 
     public static void InitDate(MaDate maDate, Scanner scanner) {
         System.out.println("*  Vous allez saisir la date.                                *");
 
@@ -147,6 +119,23 @@ public class MaDate {
             System.out.println("*  Veuillez saisir l'annee sous forme AAAA                   *");
             maDate.AA = scanner.nextInt();
         } while (maDate.AA < 1000 || maDate.AA > 9999);
+    }**/
+
+
+
+    public static void InitDate(MaDate maDate, Scanner scanner) {
+        System.out.println("* Saisie de la date *");
+        
+       // int j, m, a;
+        do {
+            System.out.println("* Jour (1-31) : ");
+            j = scanner.nextInt();
+        } while (j < 1 || j > 31);  // Validation interactive
+    
+        // Idem pour mois et année...
+        maDate.setJJ(j);
+        maDate.setMM(m);
+        maDate.setAA(a);
     }
 
   

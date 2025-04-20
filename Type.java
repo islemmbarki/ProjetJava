@@ -15,37 +15,6 @@ public class Type {
     Categorie cat;
 
 
-    // Class invariant
-    private boolean invariant() {
-        return idType >= 0 && 
-               nomType != null && !nomType.trim().isEmpty() && 
-               cat != null;
-    }
-
-    public Type(int idType, String nomType, Categorie categ) {
-        if (idType < 0 || nomType == null || nomType.trim().isEmpty() || categ == null) {
-            throw new IllegalArgumentException("Invalid type parameters");
-        }
-        this.idType = idType;
-        this.nomType = nomType;
-        this.cat = categ;
-        assert invariant();
-    }
-
-    public Type() {
-        this(0, "Unspecified", new Categorie());
-    }
-
-     // Factory method
-     public static Type createType(int id, String name, Categorie category) {
-        return new Type(id, name, category);
-    }
-
-
-    // Creator method (GRASP)
-    public Produit createProductForThisType(int id, String name, MaDate expiration) {
-        return Produit.createProduct(id, name, this, expiration);
-    }
     
 ///application solid
     private TypeFormatter formatter;
@@ -63,6 +32,18 @@ public class Type {
         this.formatter = formatter;
     }
 
+    //Principe du GRASP Creator
+    
+    /** public Type(int id, String nom, Categorie cat) {
+    this.idType = id;
+    this.nomType = nom;
+    this.cat = cat; // Reçoit une Catégorie existante
+}**/
+    public Type(int id, String nom, int idCat, String nomCat) {
+        this.idType = id;
+        this.nomType = nom;
+        this.cat = new Categorie(idCat, nomCat); // Crée sa propre Catégorie
+    }
 
 
     public int getIdType() {
