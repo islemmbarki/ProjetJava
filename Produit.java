@@ -49,6 +49,8 @@ public class Produit {
         this(0, "", new Type(), new MaDate());
     }**/
 
+
+
     // Getters and setters with invariant checks
     public void setId(int id) {
         if (id < 0) throw new IllegalArgumentException("ID cannot be negative");
@@ -56,6 +58,20 @@ public class Produit {
         assert invariant();
     }
  
+
+    // New class for product operations to follow SRP
+    class ProductService {
+    private ProductFactory productFactory;
+    
+    public ProductService(ProductFactory factory) {
+        this.productFactory = factory;
+    }
+
+    public Produit createNewProduct(int id, String name, Type type, MaDate date) {
+        return productFactory.createProduct(id, name, type, date);
+    }
+    
+
     // ... other getters/setters with similar validation
 
     // ==============================================
@@ -112,31 +128,31 @@ public class Produit {
     }*/
 
 
-//    public static void initPdt(Produit produit, int nbTyp, Type[] tabType, int[] indice) {
-//         Scanner scanner = new Scanner(System.in);
+  public static void initPdt(Produit produit, int nbTyp, Type[] tabType, int[] indice) {
+         Scanner scanner = new Scanner(System.in);
 
-//         System.out.print("\nDonner l'id du produit: ");
-//         produit.setId(scanner.nextInt());
-//         scanner.nextLine(); // Consomme la nouvelle ligne
+         System.out.print("\nDonner l'id du produit: ");
+         produit.setId(scanner.nextInt());
+         scanner.nextLine(); // Consomme la nouvelle ligne
 
-//         System.out.print("Donner le nom du produit: ");
-//         produit.setNom(scanner.nextLine());
+         System.out.print("Donner le nom du produit: ");
+         produit.setNom(scanner.nextLine());
 
-//         System.out.println("Remplir la date d'expiration du produit:");
-//         MaDate.InitDate(produit.Date_expiration,scanner);
+         System.out.println("Remplir la date d'expiration du produit:");
+         MaDate.InitDate(produit.Date_expiration,scanner);
 
-//         for (int i = 0; i < nbTyp; i++) {
-//             System.out.printf("%d: %s\t", i, tabType[i].getNomType());
-//         }
+         for (int i = 0; i < nbTyp; i++) {
+             System.out.printf("%d: %s\t", i, tabType[i].getNomType());
+         }
 
-//         System.out.print("\nDonner l'indice du type auquel appartient le produit: ");
-//         indice[0] = scanner.nextInt();
+         System.out.print("\nDonner l'indice du type auquel appartient le produit: ");
+         indice[0] = scanner.nextInt();
 
-//         produit.getTyp().setNomType(tabType[indice[0]].getNomType());
-//         produit.getTyp().setIdType(tabType[indice[0]].getIdType());
-//         produit.getTyp().getCat().setIdCat(tabType[indice[0]].getCat().getIdCat());
-//         produit.getTyp().getCat().setNomCat(tabType[indice[0]].getCat().getNomCat());
-//     }
+         produit.getTyp().setNomType(tabType[indice[0]].getNomType());
+         produit.getTyp().setIdType(tabType[indice[0]].getIdType());
+         produit.getTyp().getCat().setIdCat(tabType[indice[0]].getCat().getIdCat());
+        produit.getTyp().getCat().setNomCat(tabType[indice[0]].getCat().getNomCat());
+    }
 
 
 ////application grasp low coupling 
@@ -165,7 +181,7 @@ public static void initPdt(Produit produit, int nbTyp, Type[] tabType, int[] ind
 
 
 
-/** 
+
    public static void ajouterPdt(Produit p, int nbTyp, Type[] tabType, int[] tabQte, Produit[][] stock) {
         int ind = -5;
         for (int i = 0; i < nbTyp; ++i) {
@@ -208,7 +224,11 @@ public static void initPdt(Produit produit, int nbTyp, Type[] tabType, int[] ind
         } else {
             System.out.println("Le type du produit n'existe pas dans TabType");
         }
-    }**/
+    }
+
+
+
+
  /*public static void supprimerPdt(int idProduit, int idType, int nbTyp, Type[] tabType, int[] tabQte, Produit[][] stock) {
         int indiceType = -1;
         for (int i = 0; i < nbTyp; ++i) {
@@ -255,7 +275,7 @@ public static void initPdt(Produit produit, int nbTyp, Type[] tabType, int[] ind
 */
   
 
-/**public static void SupprimerPdt(Produit[][] stock, int[] tabQte, Produit pdt, Type[] tabType, int nbType) {
+public static void SupprimerPdt(Produit[][] stock, int[] tabQte, Produit pdt, Type[] tabType, int nbType) {
         int i = 0, j = 0;
         i = Type.TypeExiste(tabType, nbType, pdt.Typ);
 
@@ -279,5 +299,6 @@ public static void initPdt(Produit produit, int nbTyp, Type[] tabType, int[] ind
         } else {
             System.out.println("*   Produit errone                                           *");
         }
-}**/
+    }
+}
 }

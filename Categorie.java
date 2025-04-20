@@ -4,6 +4,7 @@
  */
 
 package com.mycompany.projetjava;
+import java.lang.invoke.ClassSpecializer.Factory;
 import java.util.Scanner;
 
 /*
@@ -18,6 +19,12 @@ import java.util.Scanner;
 public class Categorie {
     int idCat;
     String nomCat;
+
+     // Class invariant: ID must be positive and name not empty
+     private boolean invariant() {
+        return idCat >= 0 && nomCat != null && !nomCat.trim().isEmpty();
+    }
+
     //Implementing Creator Pattern (GRASP)
     public Type createType(String typeName) {
         return new Type(generateTypeId(), typeName, this);
@@ -28,14 +35,33 @@ public class Categorie {
         
     }
     
-    public Categorie(int idCat, String nomCat) {
+    /**public Categorie(int idCat, String nomCat) {
         this.idCat = idCat;
         this.nomCat = nomCat;
     }
     public Categorie() {
         this.idCat = 0;
         this.nomCat = ""; 
+    }**/
+
+    public Categorie(int idCat, String nomCat) {
+        if (idCat < 0 || nomCat == null || nomCat.trim().isEmpty()) {
+            throw new IllegalArgumentException("Invalid category parameters");
+        }
+        this.idCat = idCat;
+        this.nomCat = nomCat;
+        assert invariant();
     }
+
+    public Categorie() {
+        this(0, "Uncategorized");
+    }
+
+    // Factory method
+    public static Categorie createCategory(int id, String name) {
+        return new Categorie(id, name);
+    }
+
 
     public int getIdCat() {
         return idCat;

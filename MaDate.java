@@ -58,24 +58,24 @@ public class MaDate {
     }
 
     // ... (rest of the getters and setters with validation)
-/**
+
     public void setJJ(int JJ) {
         if (!isValidDate(JJ, this.MM, this.AA)) {
             throw new IllegalArgumentException("Invalid day for current month/year");
         }
         this.JJ = JJ;
         assert invariant();
-    }**/
+    }
 
-   /** public void setMM(int MM) {
+    public void setMM(int MM) {
         if (!isValidDate(this.JJ, MM, this.AA)) {
             throw new IllegalArgumentException("Invalid month for current day/year");
         }
         this.MM = MM;
         assert invariant();
-    }**/
+    }
 
-   /**  public void setAA(int AA) {
+     public void setAA(int AA) {
         if (!isValidDate(this.JJ, this.MM, AA)) {
             throw new IllegalArgumentException("Invalid year for current day/month");
         }
@@ -83,15 +83,15 @@ public class MaDate {
         assert invariant();
     }
 
-
+/** 
     public MaDate(){
         JJ=01;
         MM=01;
         AA=2025;
-    };
+    };**/
 
     //////application OCL ici
-    public MaDate(int jour, int mois, int annee) {
+  /**   public MaDate(int jour, int mois, int annee) {
         if (jour < 1 || jour > 31) {
             throw new IllegalArgumentException("Jour invalide");
         }
@@ -118,7 +118,7 @@ public class MaDate {
     public int getAA() {
         return AA;
     }
-
+/** 
     public void setJJ(int JJ) {
         this.JJ = JJ;
     }
@@ -129,7 +129,7 @@ public class MaDate {
 
     public void setAA(int AA) {
         this.AA = AA;
-    }
+    }**/
     public static void InitDate(MaDate maDate, Scanner scanner) {
         System.out.println("*  Vous allez saisir la date.                                *");
 

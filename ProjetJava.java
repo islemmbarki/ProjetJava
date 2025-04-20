@@ -6,18 +6,55 @@ package com.mycompany.projetjava;
 import java.util.Scanner;
 //import static com.mycompany.projetjava.Categorie.AjouterCat;
 
+import com.mycompany.projetjava.Produit.ProductService;
+
 /**
  *
  * @author 
  */
 public class ProjetJava {
     public static void main(String[] args){
-         Categorie[] TabCat = new Categorie[20];
+
+        // Initialize factories
+        ProductFactory productFactory = new DefaultProductFactory();
+        
+        // Initialize services
+        ProductService productService = new ProductService(productFactory);
+        
+        // Initialize categories using factory method
+        Categorie[] TabCat = new Categorie[20];
+        TabCat[0] = Categorie.createCategory(1, "Conserve");
+        TabCat[1] = Categorie.createCategory(2, "PLaitiers");
+        int nbCat = 2;
+
+        // Initialize types using factory method
+        Type[] TabType = new Type[50];
+        TabType[0] = Type.createType(1, "Tomate", TabCat[0]);
+        TabType[1] = Type.createType(2, "Mais", TabCat[0]);
+        TabType[2] = Type.createType(3, "Lait", TabCat[1]);
+        int nbTyp = 3;
+        
+        // Initialize quantities
+        int[] TabQte = new int[50];
+        
+        // Initialize stock using factory
+        Produit[][] Stock = new Produit[100][50];
+        Stock[0][0] = productFactory.createProduct(1, "Sicam", TabType[0], new MaDate(5, 12, 2024));
+        TabQte[0]++;
+        Stock[1][0] = productFactory.createProduct(2, "Sicam", TabType[0], new MaDate(24, 4, 2023));
+        TabQte[0]++;
+        Stock[0][2] = productFactory.createProduct(1, "Vitalait", TabType[2], new MaDate(24, 10, 2024));
+        TabQte[2]++;
+
+
+
+        /** 
+        Categorie[] TabCat = new Categorie[20];
         int nbCat;
         Type[] TabType = new Type[50];
         int nbTyp;
         int[] TabQte = new int[50];
-        Produit[][] Stock = new Produit[100][50];
+        Produit[][] Stock = new Produit[100][50];**/
 
         // Initialize categories
         TabCat[0] = new Categorie(1, "Conserve");

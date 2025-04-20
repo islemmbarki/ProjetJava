@@ -15,6 +15,33 @@ public class Type {
     Categorie cat;
 
 
+    // Class invariant
+    private boolean invariant() {
+        return idType >= 0 && 
+               nomType != null && !nomType.trim().isEmpty() && 
+               cat != null;
+    }
+
+    public Type(int idType, String nomType, Categorie categ) {
+        if (idType < 0 || nomType == null || nomType.trim().isEmpty() || categ == null) {
+            throw new IllegalArgumentException("Invalid type parameters");
+        }
+        this.idType = idType;
+        this.nomType = nomType;
+        this.cat = categ;
+        assert invariant();
+    }
+
+    public Type() {
+        this(0, "Unspecified", new Categorie());
+    }
+
+     // Factory method
+     public static Type createType(int id, String name, Categorie category) {
+        return new Type(id, name, category);
+    }
+
+
     // Creator method (GRASP)
     public Produit createProductForThisType(int id, String name, MaDate expiration) {
         return Produit.createProduct(id, name, this, expiration);
@@ -23,10 +50,11 @@ public class Type {
 ///application solid
     private TypeFormatter formatter;
 
-    public Type() {
+    /**public Type() {
         this.idType = 0;
         this.nomType = "";
-    }
+    }**/
+
 /////application solid aussi 
     public Type(int idType, String nomType, Categorie categ , TypeFormatter formatter) {
         this.idType = idType;
@@ -68,6 +96,47 @@ public class Type {
         }
         return -1;
     }
+
+
+    class TypeService {
+        public static void InitType(Type typ, Categorie[] TabCat, int NbCat, Scanner scanner) {
+            // ... implementation
+            System.out.println("*  Veuillez entrer le nom du Type                            *");
+            Typ.setNomType(scanner.next());
+    
+            System.out.println("*  Veuillez entrer l'id du Type                              *");
+            Typ.setIdType(scanner.nextInt());
+    
+            System.out.println("*  Veuillez choisir une des categories suivantes             *");
+            for (int i = 0; i < NbCat; i++) {
+                System.out.println("*    " + TabCat[i].idCat + "-" + TabCat[i].getNomCat() + "\t");
+            }
+
+            int id = scanner.nextInt();
+            int i = 0;
+            while (i != NbCat && TabCat[i].idCat != id) {
+                i++;
+            }
+            if (i < NbCat) {
+                Typ.setCat(TabCat[i]);
+            } else {
+                System.out.println("Invalid category ID entered.");
+            }
+        }
+        
+        public static void AjouterType(Type Typ, Type[] TabType, int NbType, Categorie[] TabCat, 
+                                     int NbCat, int[] TabQte, Scanner scanner) {
+            // ... implementation
+            if (NbType < 50 && TypeExiste(TabType, NbType, Typ) == -1) {
+                TabType[NbType] = Typ;
+                TabQte[NbType] = 0;
+                NbType++;
+                System.out.println("***************          Type ajoute          ****************");
+            } else {
+                System.out.println("***************        Ajout impossible       ****************");
+            }
+        }
+/** 
     public static void InitType(Type Typ,Categorie TabCat[],int NbCat,Scanner scanner){
         System.out.println("*  Veuillez entrer le nom du Type                            *");
         Typ.setNomType(scanner.next());
@@ -90,9 +159,10 @@ public class Type {
         } else {
             System.out.println("Invalid category ID entered.");
         }
-    }
+    }**/
 
-    public static void AjouterType(Type Typ,Type[] TabType, int NbType, Categorie[] TabCat, int NbCat, int[] TabQte, Scanner scanner) {
+    
+  /**   public static void AjouterType(Type Typ,Type[] TabType, int NbType, Categorie[] TabCat, int NbCat, int[] TabQte, Scanner scanner) {
         InitType(Typ, TabCat, NbCat, scanner);
         if (NbType < 50 && TypeExiste(TabType, NbType, Typ) == -1) {
             TabType[NbType] = Typ;
@@ -103,7 +173,7 @@ public class Type {
             System.out.println("***************        Ajout impossible       ****************");
         }
     }
-    
+    **/
     public static void SupprimerType(Type[] TabType, int NbType, int[] TabQte, Scanner scanner) {
         System.out.println("* Quelle type souhaitez-vous supprimer?                       *");
 
@@ -137,6 +207,5 @@ public class Type {
     public void afficher() {
         formatter.afficher(this);
     }
-
-
+}
 }
