@@ -1,4 +1,4 @@
-
+package com.mycompany.projetjava.factories;
 
 public class ObjectFactory {
     // Méthode pour créer une Catégorie

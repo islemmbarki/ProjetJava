@@ -1,5 +1,7 @@
+package com.mycompany.projetjava.managers;
+
 import com.mycompany.projetjava.Categorie;
-import com.mycompany.projetjava.Produit;
+import com.mycompany.projetjava.product.Produit;
 
 public class StockManager {
     public static void afficherStock(Categorie[] tabCat, int nbCat, Type[] tabType, int nbTyp, int[] tabQte, Produit[][] stock) {

@@ -1,5 +1,7 @@
-package com.mycompany.projetjava;
-import java.util.Scanner;
+package com.mycompany.projetjava.services;
+import com.mycompany.projetjava.Categorie;
+import com.mycompany.projetjava.product.Produit;
+import com.mycompany.projetjava.Type;
 ////////////application grasp 
 
 public class TypeService {

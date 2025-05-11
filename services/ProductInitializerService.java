@@ -1,7 +1,7 @@
-//SRP
-import com.mycompany.projetjava.Produit;
+package com.mycompany.projetjava.services;//SRP
+import com.mycompany.projetjava.product.Produit;
 import com.mycompany.projetjava.Type;
-import com.mycompany.projetjava.MaDate;
+
 import java.util.Scanner;
 
 /**

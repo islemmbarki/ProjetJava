@@ -1,4 +1,6 @@
-import com.mycompany.projetjava.Produit;
+package com.mycompany.projetjava.factories;
+
+import com.mycompany.projetjava.product.Produit;
 import com.mycompany.projetjava.Type;
 import com.mycompany.projetjava.MaDate;
 public class DefaultProductFactory implements ProductFactory {

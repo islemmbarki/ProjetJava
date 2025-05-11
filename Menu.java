@@ -3,6 +3,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.mycompany.projetjava;
+import com.mycompany.projetjava.product.Produit;
+
 import java.util.Scanner;
 
 import javax.naming.spi.ObjectFactory;

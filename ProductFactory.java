@@ -1,4 +1,4 @@
-import com.mycompany.projetjava.Produit;
+import com.mycompany.projetjava.product.Produit;
 import com.mycompany.projetjava.Type;
 import com.mycompany.projetjava.MaDate;
 

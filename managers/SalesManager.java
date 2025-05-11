@@ -1,10 +1,11 @@
+package com.mycompany.projetjava.managers;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
-import com.mycompany.projetjava.Produit;
+import com.mycompany.projetjava.product.Produit;
 
 public class SalesManager {
     public static void vendreProduit(Type[] types, int nbTypes, int[] quantities, Produit[][] stock, Scanner scanner) {

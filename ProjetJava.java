@@ -8,7 +8,10 @@ import java.util.Scanner;
 
 import javax.naming.spi.ObjectFactory;
 
-import com.mycompany.projetjava.Produit.ProductService;
+import com.mycompany.projetjava.product.Produit;
+import com.mycompany.projetjava.product.Produit.ProductService;
+import com.mycompany.projetjava.Statistic.MonthlyStatistic;
+import com.mycompany.projetjava.managers.StatsManager;
 
 /**
  *
@@ -39,7 +42,9 @@ public class ProjetJava {
         // Après
         StockManager.afficherStock(TabCat, nbCat, TabType, nbTyp, TabQte, Stock);
         SalesManager.vendreProduit(TabType, NbType, TabQte, Stock, scanner);
-        StatsManager.calculerStatMois(mois, annee, TabCat, nbCat);
+        MonthlyStatistic month = new MonthlyStatistic() ;
+        StatsManager s = new StatsManager(month);
+        s.process(4 , 2001 , TabType[0] , 12);
 
 
         

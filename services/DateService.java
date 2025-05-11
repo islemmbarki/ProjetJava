@@ -1,4 +1,4 @@
-package com.mycompany.projetjava;
+package com.mycompany.projetjava.services;
 
 import java.util.Scanner;
 import com.mycompany.projetjava.MaDate;;
